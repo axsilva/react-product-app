@@ -1,6 +1,5 @@
 import React, { useEffect, useState } from "react";
 import MovieCard from "../components/MovieCard";
-import "./Home.css";
 import { getPopularMovies, searchMovies } from "../services/api";
 
 function Home() {
@@ -16,62 +15,64 @@ function Home() {
         setMovies(popularMovies);
       } catch (err) {
         console.log(err);
-        setError("Failed to load movies...")
-      }
-      finally{
+        setError("Failed to load movies...");
+      } finally {
         setLoading(false);
       }
-    }
+    };
 
     loadPopularMovies();
   }, []);
 
   const handleSearch = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
-    if(!searchQuery.trim()) return;
-    if(loading) return;
+    if (!searchQuery.trim()) return;
+    if (loading) return;
 
     setLoading(true);
 
-    try{
+    try {
       const searchResults = await searchMovies(searchQuery);
       setMovies(searchResults);
       setError(null);
-    }
-    catch(err) {
+    } catch (err) {
       console.log(err);
-      setError("Failed to search movies...")
-    }
-    finally{
+      setError("Failed to search movies...");
+    } finally {
       setLoading(false);
     }
   };
 
   return (
-    <div className="home">
-      <form onSubmit={handleSearch} className="search-form">
-        <input
-          type="text"
-          placeholder="Search for movies..."
-          className="search-input"
-          value={searchQuery}
-          onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-            setSearchQuery(event.target.value)
-          }
-        />
-        <button type="submit" className="search-button">
-          Search
-        </button>
+    <div className="container-fluid text-center">
+      <form onSubmit={handleSearch} className="row mb-5">
+        <div className="col-10">
+          <input
+            className="form-control"
+            type="text"
+            placeholder="Search for movies..."
+            value={searchQuery}
+            onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+              setSearchQuery(event.target.value)
+            }
+          />
+        </div>
+        <div className="col-2">
+          <button type="submit" className="btn btn-danger">
+            Search
+          </button>
+        </div>
       </form>
       {error && <div className="error-message">{error}</div>}
-      {loading ? <div className="loading">Loading...</div> : 
-      (<div className="movies-grid">
-        {movies.map(
-          (movie) =>
-              <MovieCard {...movie} key={movie.id} />
-        )}
-      </div>)
-}
+      {loading ? (
+        <div className="loading">Loading...</div>
+      ) : (
+        <div className="row">
+          {movies.map((movie) => (
+            <MovieCard {...movie} key={movie.id} />
+          ))}
+        </div>
+      )}
     </div>
   );
 }

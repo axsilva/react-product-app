@@ -1,16 +1,14 @@
-import React from "react";
-import "./Favorites.css";
 import { useMovieContext } from "../contexts/MovieContext";
 import MovieCard from "../components/MovieCard";
 
 function Favorites() {
   const { favorites } = useMovieContext();
 
-  if (favorites) {
+  if (favorites.length > 0) {
     return (
-      <div className="favorites">
+      <div className="container-fluid text-center">
         <h2>Your Favorites</h2>
-        <div className="movies-grid">
+        <div className="row">
           {favorites.map((favorite) => (
             <MovieCard {...favorite} key={favorite.id} />
           ))}

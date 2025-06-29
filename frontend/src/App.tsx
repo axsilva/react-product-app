@@ -4,12 +4,13 @@ import Favorites from "./pages/Favorites";
 import Navbar from "./components/Navbar";
 import "./App.css";
 import { MovieProvider } from "./contexts/MovieContext";
+import "bootstrap/dist/css/bootstrap.min.css";
 
 function App() {
   return (
     <MovieProvider>
       <Navbar />
-      <main className="main-content">
+      <main className="main-content p-4">
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/favorites" element={<Favorites />} />

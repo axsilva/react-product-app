@@ -1,20 +1,37 @@
-import React from "react";
 import { Link } from "react-router-dom";
-import "./Navbar.css";
 
 function Navbar() {
   return (
-    <nav className="navbar">
-      <div className="navbar-brand">
-        <Link to="/">Movie App</Link>
-      </div>
-      <div className="navbar-links">
-        <Link className="nav-link" to="/">
-          Home
+    <nav className="navbar navbar-expand-lg bg-body-tertiary">
+      <div className="container-fluid">
+        <Link className="navbar-brand" to="/">
+          Movie App
         </Link>
-        <Link className="nav-link" to="/favorites">
-          Favorites
-        </Link>
+        <button
+          className="navbar-toggler"
+          type="button"
+          data-bs-toggle="collapse"
+          data-bs-target="#navbarNav"
+          aria-controls="navbarNav"
+          aria-expanded="false"
+          aria-label="Toggle navigation"
+        >
+          <span className="navbar-toggler-icon"></span>
+        </button>
+        <div className="collapse navbar-collapse" id="navbarNav">
+          <ul className="navbar-nav">
+            <li className="nav-item">
+              <Link className="nav-link active" aria-current="page" to="/">
+                Home
+              </Link>
+            </li>
+            <li className="nav-item">
+              <Link className="nav-link" to="/favorites">
+                Favorites
+              </Link>
+            </li>
+          </ul>
+        </div>
       </div>
     </nav>
   );
