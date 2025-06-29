@@ -1,27 +1,28 @@
 import React, { useEffect, useState } from "react";
-import MovieCard from "../components/MovieCard";
-import { getPopularMovies, searchMovies } from "../services/api";
+import ProductCard from "../components/ProductCard";
+import { getProducts, searchProducts } from "../services/api";
+import type { Product } from "../types/product";
 
 function Home() {
-  const [searchQuery, setSearchQuery] = useState("");
-  const [movies, setMovies] = useState([]);
-  const [error, setError] = useState(null);
-  const [loading, setLoading] = useState(true);
+  const [searchQuery, setSearchQuery] = useState<string>("");
+  const [products, setProducts] = useState<Product[]>([]);
+  const [error, setError] = useState<string | null>(null);
+  const [loading, setLoading] = useState<boolean>(true);
 
   useEffect(() => {
-    const loadPopularMovies = async () => {
+    const loadProducts = async () => {
       try {
-        const popularMovies = await getPopularMovies();
-        setMovies(popularMovies);
+        const products = await getProducts();
+        setProducts(products);
       } catch (err) {
         console.log(err);
-        setError("Failed to load movies...");
+        setError("Failed to load products...");
       } finally {
         setLoading(false);
       }
     };
 
-    loadPopularMovies();
+    loadProducts();
   }, []);
 
   const handleSearch = async (event: React.FormEvent<HTMLFormElement>) => {
@@ -32,12 +33,12 @@ function Home() {
     setLoading(true);
 
     try {
-      const searchResults = await searchMovies(searchQuery);
-      setMovies(searchResults);
+      const searchResults = await searchProducts(searchQuery);
+      setProducts(searchResults);
       setError(null);
     } catch (err) {
       console.log(err);
-      setError("Failed to search movies...");
+      setError("Failed to search products...");
     } finally {
       setLoading(false);
     }
@@ -50,7 +51,7 @@ function Home() {
           <input
             className="form-control"
             type="text"
-            placeholder="Search for movies..."
+            placeholder="Search for products..."
             value={searchQuery}
             onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
               setSearchQuery(event.target.value)
@@ -68,8 +69,8 @@ function Home() {
         <div className="loading">Loading...</div>
       ) : (
         <div className="row">
-          {movies.map((movie) => (
-            <MovieCard {...movie} key={movie.id} />
+          {products.map((product: Product) => (
+            <ProductCard {...product} key={product.id} />
           ))}
         </div>
       )}

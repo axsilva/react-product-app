@@ -1,17 +1,17 @@
-const BASE_URL = "http://localhost:3000";
+const BASE_URL = "https://dummyjson.com";
 
-export const getPopularMovies = async () => {
-  const response = await fetch(`${BASE_URL}/movies`);
+export const getProducts = async () => {
+  const response = await fetch(`${BASE_URL}/products`);
   const data = await response.json();
 
-  return data;
+  return data.products;
 };
 
-export const searchMovies = async (query: string) => {
+export const searchProducts = async (query: string) => {
   const response = await fetch(
-    `${BASE_URL}/movies?search=${encodeURIComponent(query)}`
+    `${BASE_URL}/products/search?q=${encodeURIComponent(query)}`
   );
   const data = await response.json();
 
-  return data;
+  return data.products;
 };

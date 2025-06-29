@@ -1,16 +1,17 @@
-import { useMovieContext } from "../contexts/MovieContext";
-import MovieCard from "../components/MovieCard";
+import { useProductContext } from "../contexts/ProductContext";
+import ProductCard from "../components/ProductCard";
+import type { Product, ProductContextType } from "../types/product";
 
 function Favorites() {
-  const { favorites } = useMovieContext();
+  const { favorites }: ProductContextType | undefined = useProductContext();
 
   if (favorites.length > 0) {
     return (
       <div className="container-fluid text-center">
         <h2>Your Favorites</h2>
         <div className="row">
-          {favorites.map((favorite) => (
-            <MovieCard {...favorite} key={favorite.id} />
+          {favorites.map((favorite: Product) => (
+            <ProductCard {...favorite} key={favorite.id} />
           ))}
         </div>
       </div>
@@ -18,8 +19,8 @@ function Favorites() {
   }
   return (
     <div className="favorites-empty">
-      <h2>No Favorite Movies Yet!</h2>
-      <p>Start adding movies to your favorites and they will appear here.</p>
+      <h2>No Favorite Product Yet!</h2>
+      <p>Start adding products to your favorites and they will appear here.</p>
     </div>
   );
 }
