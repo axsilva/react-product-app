@@ -2,6 +2,7 @@ import React, { useEffect, useState } from "react";
 import ProductCard from "../components/ProductCard";
 import { getProducts, searchProducts } from "../services/api";
 import type { Product } from "../types/product";
+import { Link } from "react-router-dom";
 
 function Home() {
   const [searchQuery, setSearchQuery] = useState<string>("");
@@ -47,7 +48,7 @@ function Home() {
   return (
     <div className="container-fluid text-center">
       <form onSubmit={handleSearch} className="row mb-5">
-        <div className="col-10">
+        <div className="col-8">
           <input
             className="form-control"
             type="text"
@@ -62,6 +63,13 @@ function Home() {
           <button type="submit" className="btn btn-danger">
             Search
           </button>
+        </div>
+        <div className="col-2">
+          <Link to="/product/new">
+            <button type="submit" className="btn btn-primary">
+              New product
+            </button>
+          </Link>
         </div>
       </form>
       {error && <div className="error-message">{error}</div>}

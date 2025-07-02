@@ -26,7 +26,7 @@ function Navbar() {
               </Link>
             </li>
             <li className="nav-item">
-              <Link className="nav-link" to="/favorites">
+              <Link className="nav-link" to="/product/favorites">
                 Favorites
               </Link>
             </li>
