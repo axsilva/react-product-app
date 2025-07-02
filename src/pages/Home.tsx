@@ -1,6 +1,6 @@
 import React, { useEffect, useState } from "react";
 import ProductCard from "../components/ProductCard";
-import { getProducts, searchProducts } from "../services/api";
+import { deleteProduct, getProducts, searchProducts } from "../services/api";
 import type { Product } from "../types/product";
 import { Link } from "react-router-dom";
 
@@ -10,21 +10,32 @@ function Home() {
   const [error, setError] = useState<string | null>(null);
   const [loading, setLoading] = useState<boolean>(true);
 
-  useEffect(() => {
-    const loadProducts = async () => {
-      try {
-        const products = await getProducts();
-        setProducts(products);
-      } catch (err) {
-        console.log(err);
-        setError("Failed to load products...");
-      } finally {
-        setLoading(false);
-      }
-    };
+  const loadProducts = async () => {
+    try {
+      const products = await getProducts();
+      setProducts(products);
+    } catch (err) {
+      console.error(err);
+      setError("Failed to load products...");
+    } finally {
+      setLoading(false);
+    }
+  };
 
+  useEffect(() => {
     loadProducts();
   }, []);
+
+  const removeProduct = async (id: number) => {
+    try {
+      await deleteProduct(id);
+    } catch (err) {
+      console.error(err);
+      setError("Failed to delete product...");
+    } finally {
+      await loadProducts();
+    }
+  };
 
   const handleSearch = async (event: React.FormEvent<HTMLFormElement>) => {
     event.preventDefault();
@@ -78,7 +89,11 @@ function Home() {
       ) : (
         <div className="row">
           {products.map((product: Product) => (
-            <ProductCard {...product} key={product.id} />
+            <ProductCard
+              product={product}
+              onRemove={removeProduct}
+              key={product.id}
+            />
           ))}
         </div>
       )}

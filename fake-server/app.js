@@ -40,6 +40,18 @@ app.post("/products/add", (req, res) => {
   res.status(201).json(newProduct);
 });
 
+app.delete("/products/:id", (req, res) => {
+  const id = parseInt(req.params.id);
+  const index = productsMock.products.findIndex((i) => i.id === id);
+
+  if (index === -1) {
+    return res.status(404).json({ error: "Product not found" });
+  }
+
+  const deletedProduct = productsMock.products.splice(index, 1);
+  res.json({ message: "Product deleted", item: deletedProduct[0] });
+});
+
 app.listen(port, () => {
   console.log(`Fake server listening at http://localhost:${port}`);
 });

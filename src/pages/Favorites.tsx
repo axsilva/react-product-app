@@ -11,7 +11,11 @@ function Favorites() {
         <h2>Your Favorites</h2>
         <div className="row">
           {favorites.map((favorite: Product) => (
-            <ProductCard {...favorite} key={favorite.id} />
+            <ProductCard
+              product={favorite}
+              onRemove={() => {}}
+              key={favorite.id}
+            />
           ))}
         </div>
       </div>

@@ -1,8 +1,8 @@
 import type { Product, ProductContextType } from "../types/product";
 import { useProductContext } from "../contexts/ProductContext";
 
-function ProductCard(product: Product) {
-  const { title, images, price }: Product = product;
+function ProductCard({ product, onRemove }) {
+  const { id, title, images, price }: Product = product;
   const {
     isFavorite,
     addToFavorites,
@@ -16,6 +16,10 @@ function ProductCard(product: Product) {
     else addToFavorites(product);
   }
 
+  async function onRemoveProduct() {
+    onRemove(id);
+  }
+
   return (
     <div className="col p-2">
       <div className="card" style={{ width: "18rem" }}>
@@ -24,10 +28,13 @@ function ProductCard(product: Product) {
           <h5 className="card-title">{title}</h5>
           <p className="card-text">{price}$</p>
           <button
-            className={`btn btn-${favorite ? "danger" : "secondary"}`}
+            className={`btn btn-${favorite ? "danger" : "secondary"} m-1`}
             onClick={onFavoriteClick}
           >
-            ♡
+            <i className="bi bi-heart"></i>
+          </button>
+          <button className={`btn btn-secondary m-1`} onClick={onRemoveProduct}>
+            <i className="bi bi-trash"></i>
           </button>
         </div>
       </div>

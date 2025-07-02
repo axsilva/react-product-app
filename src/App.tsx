@@ -3,8 +3,9 @@ import Home from "./pages/Home";
 import Favorites from "./pages/Favorites";
 import Navbar from "./components/Navbar";
 import { ProductProvider } from "./contexts/ProductContext";
-import "bootstrap/dist/css/bootstrap.min.css";
 import CreateProduct from "./pages/CreateProduct";
+import "bootstrap/dist/css/bootstrap.min.css";
+import "bootstrap-icons/font/bootstrap-icons.css";
 
 function App() {
   return (
