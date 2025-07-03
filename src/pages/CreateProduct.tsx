@@ -1,7 +1,14 @@
-import React from "react";
+import React, { useState } from "react";
 import { addProduct } from "../services/api";
+import FeedbackToast from "../components/FeedbackToast";
 
 function CreateProduct() {
+  const [showToast, setShowToast] = useState(false);
+
+  const closeToast = () => {
+    setShowToast(false);
+  };
+
   const handleSubmit = async (event) => {
     event.preventDefault();
     const formData = new FormData(event.target);
@@ -12,6 +19,7 @@ function CreateProduct() {
     } catch (err) {
       console.log(err);
     } finally {
+      setShowToast(true);
     }
   };
 
@@ -38,6 +46,13 @@ function CreateProduct() {
       <button type="submit" className="btn btn-primary">
         Submit
       </button>
+      <FeedbackToast
+        isOpen={showToast}
+        status="success"
+        title="Success"
+        description="Product Created!"
+        onClose={closeToast}
+      />
     </form>
   );
 }

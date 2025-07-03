@@ -13,8 +13,12 @@ function NavigationBar() {
         <Navbar.Toggle aria-controls="basic-navbar-nav" />
         <Navbar.Collapse id="basic-navbar-nav">
           <Nav>
-            <Nav.Link href="/">Home</Nav.Link>
-            <Nav.Link href="/product/favorites">Favorites</Nav.Link>
+            <Nav.Link as={Link} to="/">
+              Home
+            </Nav.Link>
+            <Nav.Link as={Link} to="/product/favorites">
+              Favorites
+            </Nav.Link>
           </Nav>
         </Navbar.Collapse>
       </Container>

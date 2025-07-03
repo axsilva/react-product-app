@@ -1,7 +1,7 @@
 import { useProductContext } from "../contexts/ProductContext";
 import ProductCard from "../components/ProductCard";
 import type { Product, ProductContextType } from "../types/product";
-import { Container } from "react-bootstrap";
+import { Container, Row } from "react-bootstrap";
 
 function Favorites() {
   const { favorites }: ProductContextType | undefined = useProductContext();
@@ -10,7 +10,7 @@ function Favorites() {
     return (
       <Container fluid className="text-center">
         <h2>Your Favorites</h2>
-        <div className="row">
+        <Row>
           {favorites.map((favorite: Product) => (
             <ProductCard
               product={favorite}
@@ -18,7 +18,7 @@ function Favorites() {
               key={favorite.id}
             />
           ))}
-        </div>
+        </Row>
       </Container>
     );
   }
