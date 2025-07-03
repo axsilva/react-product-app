@@ -1,5 +1,6 @@
 import type { Product, ProductContextType } from "../types/product";
 import { useProductContext } from "../contexts/ProductContext";
+import { Button, Card, Col } from "react-bootstrap";
 
 function ProductCard({ product, onRemove }) {
   const { id, title, images, price }: Product = product;
@@ -21,24 +22,25 @@ function ProductCard({ product, onRemove }) {
   }
 
   return (
-    <div className="col p-2">
-      <div className="card" style={{ width: "18rem" }}>
-        <img className="card-img-top" src={images?.[0]} alt={title} />
-        <div className="card-body">
-          <h5 className="card-title">{title}</h5>
-          <p className="card-text">{price}$</p>
-          <button
-            className={`btn btn-${favorite ? "danger" : "secondary"} m-1`}
+    <Col className="p-2">
+      <Card style={{ width: "18rem" }}>
+        <Card.Img variant="top" src={images?.[0]} alt={title} />
+        <Card.Body>
+          <Card.Title>{title}</Card.Title>
+          <Card.Text>{price}$</Card.Text>
+          <Button
+            variant={`${favorite ? "danger" : "secondary"}`}
+            className="m-1"
             onClick={onFavoriteClick}
           >
             <i className="bi bi-heart"></i>
-          </button>
-          <button className={`btn btn-secondary m-1`} onClick={onRemoveProduct}>
+          </Button>
+          <Button variant="secondary" className="m-1" onClick={onRemoveProduct}>
             <i className="bi bi-trash"></i>
-          </button>
-        </div>
-      </div>
-    </div>
+          </Button>
+        </Card.Body>
+      </Card>
+    </Col>
   );
 }
 

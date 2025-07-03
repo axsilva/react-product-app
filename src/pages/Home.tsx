@@ -3,6 +3,7 @@ import ProductCard from "../components/ProductCard";
 import { deleteProduct, getProducts, searchProducts } from "../services/api";
 import type { Product } from "../types/product";
 import { Link } from "react-router-dom";
+import { Button, Col, Container, Form, Row } from "react-bootstrap";
 
 function Home() {
   const [searchQuery, setSearchQuery] = useState<string>("");
@@ -57,32 +58,34 @@ function Home() {
   };
 
   return (
-    <div className="container-fluid text-center">
-      <form onSubmit={handleSearch} className="row mb-5">
-        <div className="col-8">
-          <input
-            className="form-control"
-            type="text"
-            placeholder="Search for products..."
-            value={searchQuery}
-            onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
-              setSearchQuery(event.target.value)
-            }
-          />
-        </div>
-        <div className="col-2">
-          <button type="submit" className="btn btn-danger">
-            Search
-          </button>
-        </div>
-        <div className="col-2">
-          <Link to="/product/new">
-            <button type="submit" className="btn btn-primary">
-              New product
-            </button>
-          </Link>
-        </div>
-      </form>
+    <Container fluid className="text-center">
+      <Form onSubmit={handleSearch}>
+        <Row className="mb-5">
+          <Col xs={8}>
+            <Form.Control
+              className="form-control"
+              type="text"
+              placeholder="Search for products..."
+              value={searchQuery}
+              onChange={(event: React.ChangeEvent<HTMLInputElement>) =>
+                setSearchQuery(event.target.value)
+              }
+            />
+          </Col>
+          <Col xs={2}>
+            <Button type="submit" className="btn btn-danger">
+              Search
+            </Button>
+          </Col>
+          <Col xs={2}>
+            <Link to="/product/new">
+              <Button type="submit" className="btn btn-primary">
+                New product
+              </Button>
+            </Link>
+          </Col>
+        </Row>
+      </Form>
       {error && <div className="error-message">{error}</div>}
       {loading ? (
         <div className="loading">Loading...</div>
@@ -97,7 +100,7 @@ function Home() {
           ))}
         </div>
       )}
-    </div>
+    </Container>
   );
 }
 
